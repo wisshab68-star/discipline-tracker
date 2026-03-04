@@ -21,7 +21,11 @@ export function useDisciplineScore() {
       .single()
 
     return {
-      avg_lot_size: (data?.avg_lot_size as number) ?? 0.01,
+      return {
+        avg_lot_size: (data?.avg_lot_size as number) ?? 0.01,
+        avg_trades_day: (data?.avg_trades_day as number) ?? 5,
+        avg_win_rate: (data?.avg_win_rate as number) ?? 0.5,
+      }
     }
   }, [supabase])
 
