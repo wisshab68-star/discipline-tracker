@@ -17,6 +17,8 @@ export interface TradeData {
 
 export interface BaselineData {
   avg_lot_size: number
+  avg_trades_day: number
+  avg_win_rate: number
 }
 
 export interface ScoreComponents {
