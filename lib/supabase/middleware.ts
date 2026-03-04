@@ -16,7 +16,7 @@ export async function updateSession(request: NextRequest) {
         getAll() {
           return request.cookies.getAll()
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: { name: string; value: string; options?: object }[]) {
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           )
@@ -25,7 +25,6 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // Gestion du callback magic link
   const code = request.nextUrl.searchParams.get('code')
   if (code) {
     await supabase.auth.exchangeCodeForSession(code)
@@ -42,14 +41,12 @@ export async function updateSession(request: NextRequest) {
     (p) => pathname === p || pathname.startsWith(p + '/')
   )
 
-  // Redirige vers dashboard si déjà connecté
   if (user && (pathname === '/' || pathname === '/login' || pathname === '/signup')) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
     return NextResponse.redirect(url)
   }
 
-  // Redirige vers login si non connecté
   if (isProtected && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
