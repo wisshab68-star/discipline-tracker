@@ -20,7 +20,6 @@ export function useDisciplineScore() {
       .limit(1)
       .single()
 
-    return {
       return {
         avg_lot_size: (data?.avg_lot_size as number) ?? 0.01,
         avg_trades_day: (data?.avg_trades_day as number) ?? 5,
