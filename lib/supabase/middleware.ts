@@ -25,15 +25,6 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  const code = request.nextUrl.searchParams.get('code')
-  if (code) {
-    await supabase.auth.exchangeCodeForSession(code)
-    const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
-    url.searchParams.delete('code')
-    return NextResponse.redirect(url)
-  }
-
   const { data: { user } } = await supabase.auth.getUser()
 
   const pathname = request.nextUrl.pathname

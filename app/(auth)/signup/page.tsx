@@ -1,16 +1,29 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
+function getSignupErrorMessage(error: { message: string }): string {
+  if (
+    error.message.includes('already registered') ||
+    error.message.includes('already exists') ||
+    error.message.includes('User already registered')
+  ) {
+    return 'Cet email est déjà utilisé'
+  }
+  return error.message
+}
+
 export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [success, setSuccess] = useState(false)
+  const router = useRouter()
   const supabase = createClient()
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -18,17 +31,22 @@ export default function SignupPage() {
     setLoading(true)
     setMessage('')
 
-    const { error } = await supabase.auth.signUp({ email, password })
-
-    if (error) {
-      setMessage(error.message)
+    if (password !== confirmPassword) {
+      setMessage('Les mots de passe ne correspondent pas')
       setLoading(false)
       return
     }
 
-    setSuccess(true)
-    setMessage('Compte créé ! Vérifiez votre email pour confirmer.')
-    setLoading(false)
+    const { error } = await supabase.auth.signUp({ email, password })
+
+    if (error) {
+      setMessage(getSignupErrorMessage(error))
+      setLoading(false)
+      return
+    }
+
+    router.push('/dashboard')
+    router.refresh()
   }
 
   return (
@@ -39,47 +57,55 @@ export default function SignupPage() {
           Crée ton compte Discipline Tracker
         </p>
 
-        {success ? (
-          <p className="rounded-lg bg-green/20 p-4 text-sm text-green">
-            {message}
-          </p>
-        ) : (
-          <form onSubmit={handleSignup} className="space-y-4">
-            <div>
-              <label className="mb-2 block text-sm text-muted-foreground">
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="vous@exemple.com"
-                required
-                className="w-full rounded-lg border border-border bg-[#16213E] px-4 py-3 text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="mb-2 block text-sm text-muted-foreground">
-                Mot de passe
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                minLength={6}
-                className="w-full rounded-lg border border-border bg-[#16213E] px-4 py-3 text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Création...' : 'Créer mon compte'}
-            </Button>
-            {message && (
-              <p className="text-sm text-red">{message}</p>
-            )}
-          </form>
-        )}
+        <form onSubmit={handleSignup} className="space-y-4">
+          <div>
+            <label className="mb-2 block text-sm text-muted-foreground">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="vous@exemple.com"
+              required
+              className="w-full rounded-lg border border-border bg-[#16213E] px-4 py-3 text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm text-muted-foreground">
+              Mot de passe
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+              minLength={6}
+              className="w-full rounded-lg border border-border bg-[#16213E] px-4 py-3 text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm text-muted-foreground">
+              Confirmer le mot de passe
+            </label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+              minLength={6}
+              className="w-full rounded-lg border border-border bg-[#16213E] px-4 py-3 text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+            />
+          </div>
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? 'Création...' : 'Créer mon compte'}
+          </Button>
+          {message && (
+            <p className="text-sm text-red">{message}</p>
+          )}
+        </form>
 
         <p className="text-center text-sm text-muted-foreground">
           Déjà un compte ?{' '}

@@ -8,7 +8,7 @@ Application SaaS pour mesurer la **discipline comportementale** des traders (for
 - **Langage** : TypeScript strict
 - **Styles** : Tailwind CSS v3
 - **Composants** : shadcn/ui
-- **Auth** : Supabase Auth (email + magic link)
+- **Auth** : Supabase Auth (email + mot de passe)
 - **Database** : Supabase (PostgreSQL)
 - **Déploiement** : Vercel
 
