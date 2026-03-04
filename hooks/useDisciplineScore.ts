@@ -11,22 +11,23 @@ export function useDisciplineScore() {
   const supabase = createClient()
   const { trades } = useSessionStore()
 
-  const getBaseline = useCallback(async (userId: string): Promise<BaselineData> => {
-    const { data } = await supabase
-      .from('baselines')
-      .select('avg_lot_size')
-      .eq('user_id', userId)
-      .order('computed_at', { ascending: false })
-      .limit(1)
-      .single()
+  const getBaseline = useCallback(
+    async (userId: string): Promise<BaselineData> => {
+      const { data } = await supabase
+        .from('baselines')
+        .select('avg_lot_size')
+        .eq('user_id', userId)
+        .order('computed_at', { ascending: false })
+        .limit(1)
+        .single()
 
       return {
         avg_lot_size: (data?.avg_lot_size as number) ?? 0.01,
-        avg_trades_day: (data?.avg_trades_day as number) ?? 5,
-        avg_win_rate: (data?.avg_win_rate as number) ?? 0.5,
+        avg_win_rate: 0.5,
       }
-    }
-  }, [supabase])
+    },
+    [supabase]
+  )
 
   const toTradeData = useCallback((t: Trade): TradeData => ({
     lot_size: t.lot_size,
