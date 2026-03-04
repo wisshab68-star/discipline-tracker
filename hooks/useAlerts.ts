@@ -3,10 +3,8 @@
 import { useCallback, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { detectAlerts } from '@/lib/engine/alertEngine'
-import type { TradeData } from '@/lib/engine/disciplineScore'
-import type { BaselineData } from '@/lib/engine/disciplineScore'
+import type { TradeData, BaselineData } from '@/lib/types'
 import { useSessionStore } from '@/store/sessionStore'
-
 export function useAlerts() {
   const supabase = createClient()
   const {
