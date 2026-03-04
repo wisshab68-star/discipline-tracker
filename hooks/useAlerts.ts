@@ -24,7 +24,7 @@ export function useAlerts() {
 
     const { data: baselineRow } = await supabase
       .from('baselines')
-      .select('avg_lot_size, avg_trades_day')
+      .select('avg_lot_size')
       .eq('user_id', userId)
       .order('computed_at', { ascending: false })
       .limit(1)
@@ -32,7 +32,7 @@ export function useAlerts() {
 
     const baseline: BaselineData = {
       avg_lot_size: (baselineRow?.avg_lot_size as number) ?? 0.01,
-      avg_trades_day: (baselineRow?.avg_trades_day as number) ?? 5,
+      avg_win_rate: 0.5,
     }
 
     const recentTrades: TradeData[] = trades.map((t) => ({
