@@ -1,44 +1,62 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
-function getLoginErrorMessage(error: { message: string }): string {
-  if (
-    error.message.includes('Invalid login credentials') ||
-    error.message.includes('invalid_credentials')
-  ) {
-    return 'Email ou mot de passe incorrect'
-  }
-  return error.message
-}
-
 export default function LoginPage() {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
-  const router = useRouter()
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
   const supabase = createClient()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    setMessage('')
+    setError('')
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
 
-    if (error) {
-      setMessage(getLoginErrorMessage(error))
+      if (error) {
+        setError(error.message)
+      } else {
+        setSent(true)
+      }
+    } catch {
+      setError('Une erreur inattendue est survenue. Réessaie.')
+    } finally {
       setLoading(false)
-      return
     }
+  }
 
-    router.push('/dashboard')
-    router.refresh()
+  if (sent) {
+    return (
+      <div className="page-center">
+        <div className="auth-card" style={{ textAlign: 'center' }}>
+          <h1 className="title">Vérifie ton email</h1>
+          <p className="subtitle">
+            Un lien de connexion a été envoyé à{' '}
+            <strong style={{ color: 'var(--text)' }}>{email}</strong>.
+            Clique dessus pour accéder à ton compte.
+          </p>
+          <button
+            onClick={() => { setSent(false); setEmail('') }}
+            className="btn btn-ghost btn-full"
+            style={{ marginTop: '0.5rem' }}
+          >
+            Utiliser un autre email
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -61,21 +79,10 @@ export default function LoginPage() {
               className="input input-lg"
             />
           </div>
-          <div className="form-group">
-            <label className="form-label">Mot de passe</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              className="input input-lg"
-            />
-          </div>
           <Button type="submit" className="btn-full" disabled={loading}>
-            {loading ? 'Connexion...' : 'Se connecter'}
+            {loading ? 'Envoi en cours...' : 'Recevoir le lien de connexion'}
           </Button>
-          {message && <p className="error-msg">{message}</p>}
+          {error && <p className="error-msg">{error}</p>}
         </form>
 
         <p className="subtitle" style={{ textAlign: 'center' }}>
