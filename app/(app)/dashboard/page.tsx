@@ -75,17 +75,17 @@ export default function DashboardPage() {
 
   if (!userId || loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground">Chargement...</p>
+      <div className="page-center">
+        <p className="subtitle">Chargement...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen p-4 md:p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
+    <div className="page-full">
+      <div className="container stack stack-lg">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <h1 className="font-sans text-2xl font-bold">Dashboard</h1>
+          <h1 className="title">Dashboard</h1>
           <div className="flex gap-2">
             <Link href="/session">
               <Button>Nouvelle session</Button>
@@ -105,7 +105,7 @@ export default function DashboardPage() {
 
         <ScoreChart data={chartData} />
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid-chart">
           <SessionList sessions={sessions.slice(0, 10)} />
           <AlertHistory alerts={alerts} />
         </div>

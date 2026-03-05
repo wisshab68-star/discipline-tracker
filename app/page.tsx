@@ -12,12 +12,12 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#0F0F1A] p-4">
-      <div className="max-w-2xl space-y-8 text-center">
-        <h1 className="font-sans text-4xl font-bold text-[var(--text)]">
+    <div className="page-center">
+      <div className="container-sm stack stack-xl" style={{ textAlign: 'center' }}>
+        <h1 className="title title-lg">
           Discipline Tracker
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="subtitle-lg">
           Mesure ta discipline comportementale de trading — pas ton P&L.
           <br />
           Reste aligné avec ton plan.

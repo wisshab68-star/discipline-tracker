@@ -20,37 +20,37 @@ export function StatsCards({
       title: 'Score moyen 30j',
       value: Math.round(avgScore30d),
       suffix: '/100',
-      color: 'text-green',
+      colorClass: 'text-green',
     },
     {
       title: 'Sessions totales',
       value: totalSessions,
       suffix: '',
-      color: 'text-[var(--text)]',
+      colorClass: '',
     },
     {
       title: 'Meilleur score',
       value: Math.round(bestScore),
       suffix: '/100',
-      color: 'text-green',
+      colorClass: 'text-green',
     },
     {
       title: 'Alertes évitées',
       value: alertsAvoided,
       suffix: '',
-      color: 'text-yellow',
+      colorClass: 'text-yellow',
     },
   ]
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid-responsive">
       {cards.map((c) => (
-        <Card key={c.title} className="border-border bg-[#1E1E2E]">
-          <CardHeader className="pb-2">
-            <p className="text-xs text-muted-foreground">{c.title}</p>
+        <Card key={c.title}>
+          <CardHeader className="card-header-tight">
+            <p className="text-xs subtitle">{c.title}</p>
           </CardHeader>
           <CardContent>
-            <p className={`font-mono text-2xl font-bold ${c.color}`}>
+            <p className={`font-mono font-bold ${c.colorClass}`} style={{ fontSize: '1.5rem' }}>
               {c.value}
               {c.suffix}
             </p>

@@ -15,24 +15,21 @@ const SEVERITY_ICONS: Record<string, string> = {
 
 export function AlertHistory({ alerts }: AlertHistoryProps) {
   return (
-    <Card className="border-border bg-[#1E1E2E]">
+    <Card>
       <CardHeader>
-        <h3 className="font-sans font-semibold">Dernières alertes</h3>
+        <h3 className="font-semibold">Dernières alertes</h3>
       </CardHeader>
       <CardContent>
         {alerts.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Aucune alerte récente</p>
+          <p className="text-sm subtitle">Aucune alerte récente</p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="stack stack-sm">
             {alerts.slice(0, 10).map((a) => (
-              <li
-                key={a.alert_id}
-                className="flex items-start gap-2 rounded-lg border border-border bg-[#16213E] px-3 py-2 text-sm"
-              >
+              <li key={a.alert_id} className="alert-item">
                 <span>{SEVERITY_ICONS[a.severity] ?? '•'}</span>
                 <div>
                   <p>{a.message}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs subtitle">
                     {new Date(a.triggered_at).toLocaleString()}
                   </p>
                 </div>

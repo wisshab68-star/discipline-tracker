@@ -35,19 +35,19 @@ export function SessionHeader({
   }, [startedAt])
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-[#1E1E2E] px-4 py-3">
-      <div className="flex items-center gap-6">
+    <div className="session-header">
+      <div className="flex gap-6">
         <div>
-          <span className="text-xs text-muted-foreground">Durée</span>
-          <p className="font-mono text-lg font-semibold">{duration}</p>
+          <span className="text-xs subtitle">Durée</span>
+          <p className="font-mono font-semibold" style={{ fontSize: '1.125rem' }}>{duration}</p>
         </div>
         <div>
-          <span className="text-xs text-muted-foreground">Trades</span>
-          <p className="font-mono text-lg font-semibold">{totalTrades}</p>
+          <span className="text-xs subtitle">Trades</span>
+          <p className="font-mono font-semibold" style={{ fontSize: '1.125rem' }}>{totalTrades}</p>
         </div>
         <div>
-          <span className="text-xs text-muted-foreground">Score moyen</span>
-          <p className="font-mono text-lg font-semibold">{Math.round(avgScore)}</p>
+          <span className="text-xs subtitle">Score moyen</span>
+          <p className="font-mono font-semibold" style={{ fontSize: '1.125rem' }}>{Math.round(avgScore)}</p>
         </div>
       </div>
     </div>

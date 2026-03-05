@@ -19,26 +19,32 @@ export default function AppLayout({
     router.replace('/login')
   }
 
+  const isActive = (path: string) => {
+    if (path === '/dashboard') return pathname === '/dashboard'
+    if (path === '/session') return pathname === '/session'
+    return pathname.startsWith('/history') || (pathname.startsWith('/session/') && pathname !== '/session')
+  }
+
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-border bg-[#0F0F1A]/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+    <div style={{ minHeight: '100vh' }}>
+      <header className="header">
+        <div className="header-inner">
           <nav className="flex items-center gap-4">
             <Link
               href="/dashboard"
-              className={`font-sans font-medium ${pathname === '/dashboard' ? 'text-accent' : 'text-muted-foreground hover:text-[var(--text)]'}`}
+              className={`nav-link ${isActive('/dashboard') ? 'nav-link-active' : ''}`}
             >
               Dashboard
             </Link>
             <Link
               href="/session"
-              className={`font-sans font-medium ${pathname === '/session' ? 'text-accent' : 'text-muted-foreground hover:text-[var(--text)]'}`}
+              className={`nav-link ${isActive('/session') ? 'nav-link-active' : ''}`}
             >
               Session
             </Link>
             <Link
               href="/history"
-              className={`font-sans font-medium ${pathname.startsWith('/history') || (pathname.startsWith('/session/') && pathname !== '/session') ? 'text-accent' : 'text-muted-foreground hover:text-[var(--text)]'}`}
+              className={`nav-link ${isActive('/history') ? 'nav-link-active' : ''}`}
             >
               Historique
             </Link>

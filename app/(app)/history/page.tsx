@@ -38,17 +38,17 @@ export default function HistoryPage() {
 
   if (!userId || loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground">Chargement...</p>
+      <div className="page-center">
+        <p className="subtitle">Chargement...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen p-4 md:p-6">
-      <div className="mx-auto max-w-4xl space-y-6">
+    <div className="page-full">
+      <div className="container-sm stack stack-lg">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <h1 className="font-sans text-2xl font-bold">Historique des sessions</h1>
+          <h1 className="title">Historique des sessions</h1>
           <Link href="/dashboard">
             <Button variant="outline">Dashboard</Button>
           </Link>

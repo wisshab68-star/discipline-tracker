@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import { cn } from '@/lib/utils'
 import type { AlertResult } from '@/lib/engine/alertEngine'
 
 interface AlertBannerProps {
@@ -11,18 +10,9 @@ interface AlertBannerProps {
 }
 
 const SEVERITY_STYLES = {
-  CRITICAL: {
-    className: 'bg-red-900 border-l-4 border-red-500 animate-pulse',
-    icon: '⚠️',
-  },
-  WARNING: {
-    className: 'bg-yellow-900 border-l-4 border-yellow-400',
-    icon: '⚡',
-  },
-  INFO: {
-    className: 'bg-blue-900 border-l-4 border-blue-400',
-    icon: 'ℹ️',
-  },
+  CRITICAL: { className: 'alert alert-critical', icon: '⚠️' },
+  WARNING: { className: 'alert alert-warning', icon: '⚡' },
+  INFO: { className: 'alert alert-info', icon: 'ℹ️' },
 }
 
 export function AlertBanner({
@@ -41,12 +31,7 @@ export function AlertBanner({
   }, [isInfo, onDismiss, autoDismissSeconds])
 
   return (
-    <div
-      className={cn(
-        'rounded-r-lg px-4 py-3 text-sm text-white',
-        config.className
-      )}
-    >
+    <div className={config.className}>
       <div className="flex items-center gap-2">
         <span>{config.icon}</span>
         <span>{alert.message}</span>

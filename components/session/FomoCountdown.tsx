@@ -28,19 +28,19 @@ export function FomoCountdown({ onComplete, onCancel }: FomoCountdownProps) {
   const progress = ((COUNTDOWN_SECONDS - secondsLeft) / COUNTDOWN_SECONDS) * 100
 
   return (
-    <div className="rounded-lg bg-red-900/80 p-6 text-white">
-      <p className="mb-4 font-semibold">
+    <div className="fomo-box">
+      <p className="font-semibold" style={{ marginBottom: '1rem' }}>
         ⚠️ FOMO détecté — attends 5 minutes avant de trader
       </p>
-      <div className="mb-4 font-mono text-3xl font-bold">
+      <div className="fomo-timer">
         {minutes}:{seconds.toString().padStart(2, '0')}
       </div>
-      <Progress value={progress} className="mb-4 h-2" />
+      <Progress value={progress} className="progress-thin" style={{ marginBottom: '1rem' }} />
       <Button
         variant="outline"
         size="sm"
         onClick={onCancel}
-        className="border-white/50 text-white hover:bg-white/10"
+        className="fomo-btn"
       >
         J&apos;ai changé d&apos;état émotionnel
       </Button>

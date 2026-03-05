@@ -11,9 +11,9 @@ interface ProgressRingProps {
 }
 
 const COLOR_MAP: Record<string, string> = {
-  GREEN: '#27AE60',
-  YELLOW: '#F39C12',
-  RED: '#E74C3C',
+  GREEN: '#22c55e',
+  YELLOW: '#eab308',
+  RED: '#ef4444',
 }
 
 export function ProgressRing({
@@ -26,20 +26,21 @@ export function ProgressRing({
   const radius = (size - strokeWidth) / 2
   const circumference = radius * 2 * Math.PI
   const offset = circumference - (value / 100) * circumference
-  const strokeColor = color ?? COLOR_MAP.GREEN ?? '#27AE60'
+  const strokeColor = color ?? COLOR_MAP.GREEN ?? '#22c55e'
 
   return (
     <svg
       width={size}
       height={size}
-      className={`transform -rotate-90 ${className}`}
+      style={{ transform: 'rotate(-90deg)' }}
+      className={className}
     >
       <circle
         cx={size / 2}
         cy={size / 2}
         r={radius}
         fill="none"
-        stroke="rgba(255,255,255,0.07)"
+        stroke="var(--border)"
         strokeWidth={strokeWidth}
       />
       <motion.circle

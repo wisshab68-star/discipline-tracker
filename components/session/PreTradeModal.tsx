@@ -85,35 +85,35 @@ export function PreTradeModal({ open, onClose, onComplete }: PreTradeModalProps)
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
-      <DialogContent className="max-w-[420px] border-border bg-[#1E1E2E] backdrop-blur">
+      <DialogContent style={{ maxWidth: '420px' }}>
         <DialogHeader>
-          <DialogTitle className="font-sans text-white">
+          <DialogTitle>
             Checklist pré-trade
           </DialogTitle>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs subtitle">
             ⚡ Checklist rapide — prend 5 secondes
           </p>
-          <Progress value={(step / 3) * 100} className="h-1" />
+          <Progress value={(step / 3) * 100} className="progress-thin" />
         </DialogHeader>
 
         {showFomoCountdown ? (
           <FomoCountdown onComplete={handleFomoComplete} onCancel={handleFomoCancel} />
         ) : (
-          <div className="space-y-6">
+          <div className="stack stack-lg">
             {step === 1 && (
               <div>
-                <p className="mb-4 text-sm font-medium">Ton plan est-il respecté ?</p>
+                <p className="font-medium" style={{ marginBottom: '1rem' }}>Ton plan est-il respecté ?</p>
                 <div className="flex gap-2">
                   <Button
                     variant={planRespected === true ? 'default' : 'outline'}
-                    className="flex-1"
+                    className="btn-flex-1"
                     onClick={() => handlePlanRespected(true)}
                   >
                     ✅ OUI
                   </Button>
                   <Button
                     variant={planRespected === false ? 'default' : 'outline'}
-                    className="flex-1"
+                    className="btn-flex-1"
                     onClick={() => handlePlanRespected(false)}
                   >
                     ❌ NON
@@ -124,18 +124,18 @@ export function PreTradeModal({ open, onClose, onComplete }: PreTradeModalProps)
 
             {step === 2 && (
               <div>
-                <p className="mb-4 text-sm font-medium">Setup clairement identifié ?</p>
+                <p className="font-medium" style={{ marginBottom: '1rem' }}>Setup clairement identifié ?</p>
                 <div className="flex gap-2">
                   <Button
                     variant={setupIdentified === true ? 'default' : 'outline'}
-                    className="flex-1"
+                    className="btn-flex-1"
                     onClick={() => handleSetupIdentified(true)}
                   >
                     ✅ OUI
                   </Button>
                   <Button
                     variant={setupIdentified === false ? 'default' : 'outline'}
-                    className="flex-1"
+                    className="btn-flex-1"
                     onClick={() => handleSetupIdentified(false)}
                   >
                     ❌ NON
@@ -146,7 +146,7 @@ export function PreTradeModal({ open, onClose, onComplete }: PreTradeModalProps)
 
             {step === 3 && (
               <div>
-                <p className="mb-4 text-sm font-medium">État émotionnel ?</p>
+                <p className="font-medium" style={{ marginBottom: '1rem' }}>État émotionnel ?</p>
                 <EmotionSelector value={emotionalState} onChange={handleEmotionSelect} />
               </div>
             )}

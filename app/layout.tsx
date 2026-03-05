@@ -1,20 +1,5 @@
 import type { Metadata } from 'next'
-import { Space_Mono, DM_Sans } from 'next/font/google'
-import './globals.css'
-
-const spaceMono = Space_Mono({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-space-mono',
-  display: 'swap',
-})
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-})
+import '@/styles/global.css'
 
 export const metadata: Metadata = {
   title: 'Discipline Tracker',
@@ -27,8 +12,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" className="dark">
-      <body className={`${spaceMono.variable} ${dmSans.variable} font-sans antialiased`}>
+    <html lang="fr">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      </head>
+      <body>
         {children}
       </body>
     </html>

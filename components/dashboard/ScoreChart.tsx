@@ -23,15 +23,15 @@ interface ScoreChartProps {
 
 export function ScoreChart({ data }: ScoreChartProps) {
   return (
-    <Card className="border-border bg-[#1E1E2E]">
+    <Card>
       <CardHeader>
-        <h3 className="font-sans font-semibold">Évolution du score</h3>
-        <p className="text-xs text-muted-foreground">
+        <h3 className="font-semibold">Évolution du score</h3>
+        <p className="text-xs subtitle">
           30 dernières sessions
         </p>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px]">
+        <div className="chart-height">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -47,8 +47,8 @@ export function ScoreChart({ data }: ScoreChartProps) {
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#1E1E2E',
-                  border: '1px solid rgba(255,255,255,0.07)',
+                  backgroundColor: '#1a1a1a',
+                  border: '1px solid var(--border)',
                   borderRadius: '8px',
                 }}
                 labelStyle={{ color: 'var(--text)' }}
@@ -56,9 +56,9 @@ export function ScoreChart({ data }: ScoreChartProps) {
               <Line
                 type="monotone"
                 dataKey="score"
-                stroke="#27AE60"
+                stroke="#22c55e"
                 strokeWidth={2}
-                dot={{ fill: '#27AE60', r: 4 }}
+                dot={{ fill: '#22c55e', r: 4 }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>

@@ -85,16 +85,16 @@ export default function SessionDetailPage() {
 
   if (!userId || loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground">Chargement...</p>
+      <div className="page-center">
+        <p className="subtitle">Chargement...</p>
       </div>
     )
   }
 
   if (!session) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4">
-        <p className="text-muted-foreground">Session introuvable</p>
+      <div className="page-center stack stack-sm">
+        <p className="subtitle">Session introuvable</p>
         <Link href="/history">
           <Button>Retour historique</Button>
         </Link>
@@ -106,22 +106,22 @@ export default function SessionDetailPage() {
     session.avg_score >= 75 ? 'GREEN' : session.avg_score >= 50 ? 'YELLOW' : 'RED'
 
   return (
-    <div className="min-h-screen p-4 md:p-6">
-      <div className="mx-auto max-w-4xl space-y-6">
+    <div className="page-full">
+      <div className="container-sm stack stack-lg">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Link href="/history">
             <Button variant="outline">← Retour</Button>
           </Link>
         </div>
 
-        <Card className="border-border bg-[#1E1E2E]">
+        <Card>
           <CardHeader>
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <h1 className="font-sans text-2xl font-bold">
+                <h1 className="title">
                   Session du {new Date(session.started_at).toLocaleDateString()}
                 </h1>
-                <p className="text-sm text-muted-foreground">
+                <p className="subtitle">
                   {new Date(session.started_at).toLocaleTimeString()} —{' '}
                   {session.total_trades} trades
                 </p>

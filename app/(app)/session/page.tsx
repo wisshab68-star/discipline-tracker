@@ -178,16 +178,16 @@ export default function SessionPage() {
   if (!userId) return null
 
   return (
-    <div className="min-h-screen p-4 md:p-6">
-      <div className="mx-auto max-w-6xl">
+    <div className="page-full">
+      <div className="container" style={{ maxWidth: '72rem' }}>
         <SessionHeader
           startedAt={currentSession?.started_at ?? new Date().toISOString()}
           totalTrades={currentSession?.total_trades ?? 0}
           avgScore={currentSession?.avg_score ?? 100}
         />
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_3fr]">
-          <div className="space-y-4">
+        <div className="grid-chart" style={{ marginTop: '1.5rem', gridTemplateColumns: '2fr 3fr' }}>
+          <div className="stack">
             <ScoreDisplay
               score={currentScore?.total_score ?? 100}
               color={currentScore?.color ?? 'GREEN'}
@@ -198,7 +198,7 @@ export default function SessionPage() {
             />
 
             {alerts.length > 0 && (
-              <div className="space-y-2">
+              <div className="stack stack-sm">
                 {alerts.map((a, i) => (
                   <AlertBanner key={i} alert={a} />
                 ))}
@@ -206,10 +206,10 @@ export default function SessionPage() {
             )}
           </div>
 
-          <div className="space-y-4">
+          <div className="stack">
             {showTradeForm ? (
-              <div className="rounded-xl border border-border bg-[#1E1E2E] p-6">
-                <h3 className="mb-4 font-sans font-semibold">Nouveau trade</h3>
+              <div className="card" style={{ padding: '1.5rem' }}>
+                <h3 className="font-semibold" style={{ marginBottom: '1rem' }}>Nouveau trade</h3>
                 <TradeForm
                   onSubmit={handleTradeSubmit}
                   onCancel={() => setShowTradeForm(false)}
@@ -218,7 +218,8 @@ export default function SessionPage() {
             ) : (
               <Button
                 size="lg"
-                className="w-full py-6 text-lg"
+                className="btn-full"
+                style={{ padding: '1.5rem', fontSize: '1.125rem' }}
                 onClick={() => setPreTradeModalOpen(true)}
               >
                 📋 Nouveau Trade

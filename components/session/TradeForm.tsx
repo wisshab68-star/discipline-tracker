@@ -37,19 +37,19 @@ export function TradeForm({ onSubmit, onCancel }: TradeFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="mb-1 block text-xs text-muted-foreground">Symbole</label>
+    <form onSubmit={handleSubmit} className="stack">
+      <div className="form-group">
+        <label className="form-label">Symbole</label>
         <input
           type="text"
           value={symbol}
           onChange={(e) => setSymbol(e.target.value)}
           placeholder="EUR/USD"
-          className="w-full rounded-lg border border-border bg-[#16213E] px-3 py-2 text-sm text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+          className="input"
         />
       </div>
-      <div>
-        <label className="mb-1 block text-xs text-muted-foreground">Direction</label>
+      <div className="form-group">
+        <label className="form-label">Direction</label>
         <div className="flex gap-2">
           <Button
             type="button"
@@ -69,54 +69,54 @@ export function TradeForm({ onSubmit, onCancel }: TradeFormProps) {
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="mb-1 block text-xs text-muted-foreground">Lot size</label>
+      <div className="grid-2">
+        <div className="form-group">
+          <label className="form-label">Lot size</label>
           <input
             type="number"
             step="0.01"
             min="0.01"
             value={lotSize}
             onChange={(e) => setLotSize(e.target.value)}
-            className="w-full rounded-lg border border-border bg-[#16213E] px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+            className="input"
           />
         </div>
-        <div>
-          <label className="mb-1 block text-xs text-muted-foreground">Prix ouverture</label>
+        <div className="form-group">
+          <label className="form-label">Prix ouverture</label>
           <input
             type="number"
             step="0.00001"
             value={openPrice}
             onChange={(e) => setOpenPrice(e.target.value)}
             required
-            className="w-full rounded-lg border border-border bg-[#16213E] px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+            className="input"
           />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="mb-1 block text-xs text-muted-foreground">Stop Loss (opt.)</label>
+      <div className="grid-2">
+        <div className="form-group">
+          <label className="form-label">Stop Loss (opt.)</label>
           <input
             type="number"
             step="0.00001"
             value={stopLoss}
             onChange={(e) => setStopLoss(e.target.value)}
-            className="w-full rounded-lg border border-border bg-[#16213E] px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+            className="input"
           />
         </div>
-        <div>
-          <label className="mb-1 block text-xs text-muted-foreground">Take Profit (opt.)</label>
+        <div className="form-group">
+          <label className="form-label">Take Profit (opt.)</label>
           <input
             type="number"
             step="0.00001"
             value={takeProfit}
             onChange={(e) => setTakeProfit(e.target.value)}
-            className="w-full rounded-lg border border-border bg-[#16213E] px-3 py-2 text-sm text-white focus:border-accent focus:outline-none"
+            className="input"
           />
         </div>
       </div>
       <div className="flex gap-2">
-        <Button type="submit" className="flex-1">Enregistrer</Button>
+        <Button type="submit" className="btn-flex-1">Enregistrer</Button>
         <Button type="button" variant="outline" onClick={onCancel}>
           Annuler
         </Button>

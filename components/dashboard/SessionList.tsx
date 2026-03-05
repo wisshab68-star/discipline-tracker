@@ -16,15 +16,15 @@ interface SessionListProps {
 
 export function SessionList({ sessions }: SessionListProps) {
   return (
-    <Card className="border-border bg-[#1E1E2E]">
+    <Card>
       <CardHeader>
-        <h3 className="font-sans font-semibold">Dernières sessions</h3>
+        <h3 className="font-semibold">Dernières sessions</h3>
       </CardHeader>
       <CardContent>
         {sessions.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Aucune session</p>
+          <p className="text-sm subtitle">Aucune session</p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="stack stack-sm">
             {sessions.map((s) => {
               const color: ScoreColor =
                 s.avg_score >= 75 ? 'GREEN' : s.avg_score >= 50 ? 'YELLOW' : 'RED'
@@ -32,14 +32,15 @@ export function SessionList({ sessions }: SessionListProps) {
                 <li key={s.session_id}>
                   <Link
                     href={`/session/${s.session_id}`}
-                    className="flex items-center justify-between rounded-lg border border-border bg-[#16213E] px-4 py-3 transition-colors hover:bg-[#1E1E2E]"
+                    className="trade-item"
+                    style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
                   >
                     <div>
                       <p className="font-medium">
                         {new Date(s.started_at).toLocaleDateString()} —{' '}
                         {s.total_trades} trades
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs subtitle">
                         {new Date(s.started_at).toLocaleTimeString()}
                       </p>
                     </div>

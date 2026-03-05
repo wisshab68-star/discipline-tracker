@@ -42,51 +42,45 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6 rounded-2xl border border-border bg-[#1E1E2E] p-8">
-        <h1 className="font-sans text-2xl font-bold">Connexion</h1>
-        <p className="text-sm text-muted-foreground">
+    <div className="page-center">
+      <div className="auth-card">
+        <h1 className="title">Connexion</h1>
+        <p className="subtitle">
           Discipline Tracker — Mesure ta discipline de trading
         </p>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="mb-2 block text-sm text-muted-foreground">
-              Email
-            </label>
+        <form onSubmit={handleLogin} className="stack">
+          <div className="form-group">
+            <label className="form-label">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="vous@exemple.com"
               required
-              className="w-full rounded-lg border border-border bg-[#16213E] px-4 py-3 text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+              className="input input-lg"
             />
           </div>
-          <div>
-            <label className="mb-2 block text-sm text-muted-foreground">
-              Mot de passe
-            </label>
+          <div className="form-group">
+            <label className="form-label">Mot de passe</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               required
-              className="w-full rounded-lg border border-border bg-[#16213E] px-4 py-3 text-white placeholder:text-muted-foreground focus:border-accent focus:outline-none"
+              className="input input-lg"
             />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="btn-full" disabled={loading}>
             {loading ? 'Connexion...' : 'Se connecter'}
           </Button>
-          {message && (
-            <p className="text-sm text-red">{message}</p>
-          )}
+          {message && <p className="error-msg">{message}</p>}
         </form>
 
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="subtitle" style={{ textAlign: 'center' }}>
           Pas encore de compte ?{' '}
-          <Link href="/signup" className="text-accent hover:underline">
+          <Link href="/signup" className="link-accent">
             S&apos;inscrire
           </Link>
         </p>
