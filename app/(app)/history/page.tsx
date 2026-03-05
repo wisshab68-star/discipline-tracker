@@ -33,9 +33,10 @@ export default function HistoryPage() {
   useEffect(() => {
     const load = async () => {
       const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { setLoading(false); return }
-      const { data } = await supabase.from('sessions').select('*').eq('user_id', user.id).order('started_at', { ascending: false })
-      if (data) setSessions(data as Session[])
+      if (user) {
+        const { data } = await supabase.from('sessions').select('*').eq('user_id', user.id).order('started_at', { ascending: false })
+        if (data) setSessions(data as Session[])
+      }
       setLoading(false)
     }
     load()
@@ -112,9 +113,16 @@ export default function HistoryPage() {
         </div>
 
         {filtered.length === 0 ? (
-          <div style={{ padding: '4rem', textAlign: 'center' }}>
-            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '0.75rem' }}>📋</span>
-            <p style={{ color: '#8B8FA8', fontSize: '0.9rem', margin: 0 }}>Aucune session trouvée</p>
+          <div style={{ padding: '4rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+            <svg width='48' height='48' viewBox='0 0 48 48' fill='none'>
+              <rect x='8' y='10' width='32' height='36' rx='4' stroke='#2A2A2A' strokeWidth='2'/>
+              <path d='M16 8h16v6H16z' fill='none' stroke='#333' strokeWidth='2'/>
+              <path d='M16 26h16M16 32h10' stroke='#333' strokeWidth='1.5' strokeLinecap='round'/>
+            </svg>
+            <p style={{ color: '#666', fontSize: '0.9375rem', margin: 0, fontWeight: 500 }}>
+              {sessions.length === 0 ? 'Aucune session encore — commencez votre premiere session !' : 'Aucun resultat pour ce filtre'}
+            </p>
+            {sessions.length === 0 && <a href='/session' style={{ color: '#fff', background: '#1A1A1A', border: '1px solid #1F1F1F', borderRadius: '8px', padding: '0.5rem 1.25rem', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 500 }}>Demarrer une session</a>}
           </div>
         ) : filtered.map((s, idx) => (
           <Link key={s.session_id} href={'/session/' + s.session_id} style={{ textDecoration: 'none' }}>

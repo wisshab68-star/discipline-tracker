@@ -45,6 +45,19 @@ function ChartTip({ active, payload }: { active?: boolean; payload?: Array<{ val
   )
 }
 const CSS = '.stat-c{transition:all 0.2s}.stat-c:hover{border-color:#6366F1!important;transform:translateY(-1px)}.sess-r:hover{background:rgba(255,255,255,0.025)!important}.tab-b:hover{color:#fff!important}'
+const DEMO_CHART = [{name:'S1',score:45,date:'demo'},{name:'S2',score:52,date:'demo'},{name:'S3',score:61,date:'demo'},{name:'S4',score:58,date:'demo'},{name:'S5',score:72,date:'demo'},{name:'S6',score:69,date:'demo'},{name:'S7',score:78,date:'demo'}]
+
+function useCountUp(target: number, duration = 1200) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (target === 0) { setCount(0); return }
+    let cur = 0
+    const inc = Math.max(1, Math.ceil(target / (duration / 20)))
+    const t = setInterval(() => { cur = Math.min(cur + inc, target); setCount(cur); if (cur >= target) clearInterval(t) }, 20)
+    return () => clearInterval(t)
+  }, [target, duration])
+  return count
+}
 
 export default function DashboardPage() {
   const supabase = createClient()
@@ -56,11 +69,12 @@ export default function DashboardPage() {
   useEffect(() => {
     const load = async () => {
       const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { setLoading(false); return }
-      const { data: sess } = await supabase.from('sessions').select('*').eq('user_id', user.id).order('started_at', { ascending: false }).limit(90)
-      const { data: al }   = await supabase.from('alerts').select('*').eq('user_id', user.id).order('triggered_at', { ascending: false }).limit(20)
-      if (sess) setSessions(sess as Session[])
-      if (al)   setAlerts(al as Alert[])
+      if (user) {
+        const { data: sess } = await supabase.from('sessions').select('*').eq('user_id', user.id).order('started_at', { ascending: false }).limit(90)
+        const { data: al }   = await supabase.from('alerts').select('*').eq('user_id', user.id).order('triggered_at', { ascending: false }).limit(20)
+        if (sess) setSessions(sess as Session[])
+        if (al)   setAlerts(al as Alert[])
+      }
       setLoading(false)
     }
     load()
@@ -83,8 +97,14 @@ export default function DashboardPage() {
   }
 
   const cutoff   = new Date(); cutoff.setDate(cutoff.getDate() - period)
-  const chartData = sessions.filter(s => new Date(s.started_at) >= cutoff).slice(0, period).reverse()
+  const rawChart = sessions.filter(s => new Date(s.started_at) >= cutoff).slice(0, period).reverse()
     .map((s, i) => ({ name: 'S' + (i + 1), score: Math.round(s.avg_score), date: fmtDate(s.started_at) }))
+  const chartData = rawChart.length > 0 ? rawChart : DEMO_CHART
+
+  const animAvg    = useCountUp(avg30)
+  const animBest   = useCountUp(best)
+  const animSess   = useCountUp(sessions.length)
+  const animStreak = useCountUp(streak)
 
   const R = 28; const CIRC = Math.round(2 * Math.PI * R)
   const ringDash = Math.round((avg30 / 100) * CIRC)
@@ -112,11 +132,11 @@ export default function DashboardPage() {
             <circle cx="35" cy="35" r={R} fill="none" stroke="#1F1F1F" strokeWidth="5"/>
             <circle cx="35" cy="35" r={R} fill="none" stroke={avgC} strokeWidth="5" strokeLinecap="round"
               strokeDasharray={ringDash + ' ' + (CIRC - ringDash)} transform="rotate(-90 35 35)"/>
-            <text x="35" y="40" textAnchor="middle" fill={avgC} fontSize="13" fontWeight="700" fontFamily="ui-monospace,monospace">{avg30}</text>
+            <text x="35" y="40" textAnchor="middle" fill={avgC} fontSize="13" fontWeight="700" fontFamily="ui-monospace,monospace">{animAvg}</text>
           </svg>
           <div>
             <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.375rem' }}>Score moyen 30j</p>
-            <p style={{ fontSize: '1.875rem', fontWeight: 800, color: avgC, margin: 0, fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>{avg30}</p>
+            <p style={{ fontSize: '1.875rem', fontWeight: 800, color: avgC, margin: 0, fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>{animAvg}</p>
             <p style={{ color: '#8B8FA8', fontSize: '0.75rem', margin: '0.25rem 0 0' }}>/ 100 pts</p>
           </div>
         </div>
@@ -124,7 +144,7 @@ export default function DashboardPage() {
         <div className="stat-c" style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <div style={{ width: '36px', height: '36px', background: 'rgba(99,102,241,0.12)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.125rem', marginBottom: '0.875rem' }}>📋</div>
           <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.375rem' }}>Sessions</p>
-          <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: '0 0 0.25rem', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>{sessions.length}</p>
+          <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: '0 0 0.25rem', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>{animSess}</p>
           <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', margin: 0 }}>{sess30.length} ce mois</p>
         </div>
 
@@ -132,7 +152,7 @@ export default function DashboardPage() {
           <div style={{ width: '36px', height: '36px', background: 'rgba(0,196,140,0.12)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.125rem', marginBottom: '0.875rem' }}>🏆</div>
           <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.375rem' }}>Meilleur score</p>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.25rem' }}>
-            <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: 0, fontFamily: 'ui-monospace,monospace', color: '#00C48C', lineHeight: 1 }}>{best}</p>
+            <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: 0, fontFamily: 'ui-monospace,monospace', color: '#00C48C', lineHeight: 1 }}>{animBest}</p>
             {best > 0 && <span style={{ background: 'rgba(0,196,140,0.12)', color: '#00C48C', borderRadius: '100px', padding: '0.15rem 0.5rem', fontSize: '0.6rem', fontWeight: 700, border: '1px solid rgba(0,196,140,0.25)' }}>🏆 Record</span>}
           </div>
           <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', margin: 0 }}>Tous temps</p>
@@ -141,7 +161,7 @@ export default function DashboardPage() {
         <div className="stat-c" style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <div style={{ width: '36px', height: '36px', background: 'rgba(255,184,0,0.12)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.125rem', marginBottom: '0.875rem' }}>🔥</div>
           <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.375rem' }}>Streak actuel</p>
-          <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: '0 0 0.625rem', fontFamily: 'ui-monospace,monospace', lineHeight: 1, color: streak > 0 ? '#FFB800' : '#fff' }}>{'🔥 ' + streak + 'j'}</p>
+          <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: '0 0 0.625rem', fontFamily: 'ui-monospace,monospace', lineHeight: 1, color: streak > 0 ? '#FFB800' : '#fff' }}>{'🔥 ' + animStreak + 'j'}</p>
           <div style={{ background: '#1F1F1F', borderRadius: '100px', height: '4px', overflow: 'hidden' }}>
             <div style={{ background: 'linear-gradient(90deg,#FFB800,#FF6B00)', height: '100%', width: Math.min((streak / 7) * 100, 100) + '%', borderRadius: '100px' }}/>
           </div>
@@ -154,7 +174,7 @@ export default function DashboardPage() {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
           <div>
             <h2 style={{ fontSize: '1.0625rem', fontWeight: 700, margin: '0 0 0.25rem' }}>Évolution de ta discipline</h2>
-            <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', margin: 0 }}>Score moyen par session</p>
+            <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', margin: 0 }}>Score moyen par session{rawChart.length === 0 && <span style={{ color: '#444', fontSize: '0.75rem', marginLeft: '0.5rem' }}>(demo)</span>}</p>
           </div>
           <div style={{ display: 'flex', gap: '0.25rem', background: '#0A0A0A', borderRadius: '8px', padding: '0.25rem' }}>
             {([7, 30, 90] as const).map(p => (
