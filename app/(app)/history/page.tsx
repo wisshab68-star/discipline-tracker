@@ -55,13 +55,13 @@ export default function HistoryPage() {
   const sess30 = sessions.filter(s => new Date(s.started_at) >= ago30).length
 
   if (loading) return (
-    <div style={{ background: '#0D0D0D', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ background: '#0A0A0A', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <p style={{ color: '#8B8FA8', fontFamily: 'Inter,system-ui,sans-serif' }}>Chargement...</p>
     </div>
   )
 
   return (
-    <div style={{ background: '#0D0D0D', minHeight: '100vh', padding: '2rem 2rem 4rem', fontFamily: 'Inter,system-ui,sans-serif', color: '#fff' }}>
+    <div style={{ background: '#0A0A0A', minHeight: '100vh', padding: '2rem 2rem 4rem', fontFamily: 'Inter,system-ui,sans-serif', color: '#fff' }}>
       <style>{CSS}</style>
 
       <div style={{ marginBottom: '2rem' }}>
@@ -77,7 +77,7 @@ export default function HistoryPage() {
           { icon: '🏆', label: 'Meilleur score',   val: String(best),        sub: 'record perso',    col: '#00C48C' },
           { icon: '📈', label: 'Trades total',      val: String(totalTrades), sub: 'toutes sessions', col: '#8B8FA8' },
         ].map(c => (
-          <div key={c.label} style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.25rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+          <div key={c.label} style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.25rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
             <div style={{ width: '32px', height: '32px', background: c.col + '1A', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', marginBottom: '0.75rem' }}>{c.icon}</div>
             <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.25rem' }}>{c.label}</p>
             <p style={{ fontSize: '1.75rem', fontWeight: 800, margin: '0 0 0.125rem', fontFamily: 'ui-monospace,monospace', color: c.col, lineHeight: 1 }}>{c.val}</p>
@@ -96,7 +96,7 @@ export default function HistoryPage() {
           { key: 'red',    label: '🔴 À améliorer (<50)' },
         ] as { key: 'all'|'green'|'yellow'|'red'; label: string }[]).map(f => (
           <button key={f.key} className="fil-b" onClick={() => setFilter(f.key)}
-            style={{ background: filter === f.key ? '#1A1A1A' : 'transparent', border: '1px solid ' + (filter === f.key ? '#6366F1' : '#252525'), borderRadius: '8px', padding: '0.375rem 0.875rem', color: filter === f.key ? '#A5B4FC' : '#8B8FA8', fontSize: '0.8125rem', fontWeight: filter === f.key ? 600 : 400, cursor: 'pointer', transition: 'all 0.15s' }}>
+            style={{ background: filter === f.key ? '#111111' : 'transparent', border: '1px solid ' + (filter === f.key ? '#6366F1' : '#1F1F1F'), borderRadius: '8px', padding: '0.375rem 0.875rem', color: filter === f.key ? '#A5B4FC' : '#8B8FA8', fontSize: '0.8125rem', fontWeight: filter === f.key ? 600 : 400, cursor: 'pointer', transition: 'all 0.15s' }}>
             {f.label}
           </button>
         ))}
@@ -104,8 +104,8 @@ export default function HistoryPage() {
       </div>
 
       {/* TABLE */}
-      <div style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', padding: '0.75rem 1.25rem', borderBottom: '1px solid #252525', background: '#141414' }}>
+      <div style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', padding: '0.75rem 1.25rem', borderBottom: '1px solid #252525', background: '#0E0E0E' }}>
           {['Date', 'Durée', 'Trades', 'Score moyen', 'Statut'].map(h => (
             <p key={h} style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: 0 }}>{h}</p>
           ))}

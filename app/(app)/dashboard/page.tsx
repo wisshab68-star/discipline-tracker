@@ -38,7 +38,7 @@ function ChartTip({ active, payload }: { active?: boolean; payload?: Array<{ val
   if (!active || !payload?.length) return null
   const val = payload[0].value; const date = payload[0].payload.date
   return (
-    <div style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '10px', padding: '0.625rem 0.875rem' }}>
+    <div style={{ background: '#111111', border: '1px solid #252525', borderRadius: '10px', padding: '0.625rem 0.875rem' }}>
       <p style={{ color: '#8B8FA8', fontSize: '0.75rem', margin: '0 0 0.25rem' }}>{date}</p>
       <p style={{ color: scoreColor(val), fontSize: '1.125rem', fontWeight: 700, margin: 0, fontFamily: 'ui-monospace,monospace' }}>{val}<span style={{ color: '#8B8FA8', fontSize: '0.75rem', fontWeight: 400 }}>/100</span></p>
     </div>
@@ -91,13 +91,13 @@ export default function DashboardPage() {
   const avgC = scoreColor(avg30)
 
   if (loading) return (
-    <div style={{ background: '#0D0D0D', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ background: '#0A0A0A', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <p style={{ color: '#8B8FA8', fontFamily: 'Inter,system-ui,sans-serif' }}>Chargement...</p>
     </div>
   )
 
   return (
-    <div style={{ background: '#0D0D0D', minHeight: '100vh', padding: '2rem 2rem 4rem', fontFamily: 'Inter,system-ui,sans-serif', color: '#fff' }}>
+    <div style={{ background: '#0A0A0A', minHeight: '100vh', padding: '2rem 2rem 4rem', fontFamily: 'Inter,system-ui,sans-serif', color: '#fff' }}>
       <style>{CSS}</style>
 
       <div style={{ marginBottom: '2rem' }}>
@@ -107,9 +107,9 @@ export default function DashboardPage() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
 
-        <div className="stat-c" style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div className="stat-c" style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <svg width="70" height="70" viewBox="0 0 70 70" style={{ flexShrink: 0 }}>
-            <circle cx="35" cy="35" r={R} fill="none" stroke="#252525" strokeWidth="5"/>
+            <circle cx="35" cy="35" r={R} fill="none" stroke="#1F1F1F" strokeWidth="5"/>
             <circle cx="35" cy="35" r={R} fill="none" stroke={avgC} strokeWidth="5" strokeLinecap="round"
               strokeDasharray={ringDash + ' ' + (CIRC - ringDash)} transform="rotate(-90 35 35)"/>
             <text x="35" y="40" textAnchor="middle" fill={avgC} fontSize="13" fontWeight="700" fontFamily="ui-monospace,monospace">{avg30}</text>
@@ -121,14 +121,14 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="stat-c" style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div className="stat-c" style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <div style={{ width: '36px', height: '36px', background: 'rgba(99,102,241,0.12)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.125rem', marginBottom: '0.875rem' }}>📋</div>
           <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.375rem' }}>Sessions</p>
           <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: '0 0 0.25rem', fontFamily: 'ui-monospace,monospace', lineHeight: 1 }}>{sessions.length}</p>
           <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', margin: 0 }}>{sess30.length} ce mois</p>
         </div>
 
-        <div className="stat-c" style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div className="stat-c" style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <div style={{ width: '36px', height: '36px', background: 'rgba(0,196,140,0.12)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.125rem', marginBottom: '0.875rem' }}>🏆</div>
           <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.375rem' }}>Meilleur score</p>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.25rem' }}>
@@ -138,11 +138,11 @@ export default function DashboardPage() {
           <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', margin: 0 }}>Tous temps</p>
         </div>
 
-        <div className="stat-c" style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div className="stat-c" style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', cursor: 'default', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <div style={{ width: '36px', height: '36px', background: 'rgba(255,184,0,0.12)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.125rem', marginBottom: '0.875rem' }}>🔥</div>
           <p style={{ color: '#8B8FA8', fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.375rem' }}>Streak actuel</p>
           <p style={{ fontSize: '2.25rem', fontWeight: 800, margin: '0 0 0.625rem', fontFamily: 'ui-monospace,monospace', lineHeight: 1, color: streak > 0 ? '#FFB800' : '#fff' }}>{'🔥 ' + streak + 'j'}</p>
-          <div style={{ background: '#252525', borderRadius: '100px', height: '4px', overflow: 'hidden' }}>
+          <div style={{ background: '#1F1F1F', borderRadius: '100px', height: '4px', overflow: 'hidden' }}>
             <div style={{ background: 'linear-gradient(90deg,#FFB800,#FF6B00)', height: '100%', width: Math.min((streak / 7) * 100, 100) + '%', borderRadius: '100px' }}/>
           </div>
           <p style={{ color: '#8B8FA8', fontSize: '0.7rem', margin: '0.375rem 0 0' }}>Objectif : 7 jours</p>
@@ -150,16 +150,16 @@ export default function DashboardPage() {
       </div>
 
       {/* CHART */}
-      <div style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.75rem', marginBottom: '1.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+      <div style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.75rem', marginBottom: '1.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
           <div>
             <h2 style={{ fontSize: '1.0625rem', fontWeight: 700, margin: '0 0 0.25rem' }}>Évolution de ta discipline</h2>
             <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', margin: 0 }}>Score moyen par session</p>
           </div>
-          <div style={{ display: 'flex', gap: '0.25rem', background: '#0D0D0D', borderRadius: '8px', padding: '0.25rem' }}>
+          <div style={{ display: 'flex', gap: '0.25rem', background: '#0A0A0A', borderRadius: '8px', padding: '0.25rem' }}>
             {([7, 30, 90] as const).map(p => (
               <button key={p} className="tab-b" onClick={() => setPeriod(p)}
-                style={{ background: period === p ? '#1A1A1A' : 'transparent', border: period === p ? '1px solid #252525' : '1px solid transparent', borderRadius: '6px', padding: '0.375rem 0.75rem', color: period === p ? '#fff' : '#8B8FA8', fontSize: '0.8125rem', fontWeight: period === p ? 600 : 400, cursor: 'pointer', transition: 'all 0.15s' }}>
+                style={{ background: period === p ? '#111111' : 'transparent', border: period === p ? '1px solid #252525' : '1px solid transparent', borderRadius: '6px', padding: '0.375rem 0.75rem', color: period === p ? '#fff' : '#8B8FA8', fontSize: '0.8125rem', fontWeight: period === p ? 600 : 400, cursor: 'pointer', transition: 'all 0.15s' }}>
                 {p}j
               </button>
             ))}
@@ -179,7 +179,7 @@ export default function DashboardPage() {
                   <stop offset="95%" stopColor="#6366F1" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#252525" vertical={false}/>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1F1F1F" vertical={false}/>
               <XAxis dataKey="name" tick={{ fill: '#8B8FA8', fontSize: 11 }} axisLine={false} tickLine={false}/>
               <YAxis domain={[0, 100]} tick={{ fill: '#8B8FA8', fontSize: 11 }} axisLine={false} tickLine={false}/>
               <Tooltip content={<ChartTip/>}/>
@@ -192,7 +192,7 @@ export default function DashboardPage() {
 
       {/* BOTTOM GRID */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-        <div style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
             <h2 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>Sessions récentes</h2>
             <a href="/history" style={{ color: '#6366F1', fontSize: '0.8125rem', fontWeight: 600, textDecoration: 'none' }}>Tout voir →</a>
@@ -217,7 +217,7 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        <div style={{ background: '#1A1A1A', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
+        <div style={{ background: '#111111', border: '1px solid #252525', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
             <h2 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>Alertes récentes</h2>
             {critN > 0 && <span style={{ background: 'rgba(255,77,106,0.12)', color: '#FF4D6A', borderRadius: '100px', padding: '0.15rem 0.625rem', fontSize: '0.7rem', fontWeight: 700 }}>{critN} critiques</span>}
@@ -228,7 +228,7 @@ export default function DashboardPage() {
               <p style={{ color: '#8B8FA8', fontSize: '0.875rem', margin: 0 }}>Aucune alerte. Beau travail !</p>
             </div>
           ) : alerts.slice(0, 8).map(a => (
-            <div key={a.alert_id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.625rem 0.625rem', borderRadius: '8px', background: '#0D0D0D', borderLeft: '3px solid ' + SEV_COLORS[a.severity], marginBottom: '0.375rem' }}>
+            <div key={a.alert_id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.625rem 0.625rem', borderRadius: '8px', background: '#0A0A0A', borderLeft: '3px solid ' + SEV_COLORS[a.severity], marginBottom: '0.375rem' }}>
               <span style={{ fontSize: '1rem', flexShrink: 0 }}>{ALERT_ICONS[a.alert_type] ?? '⚠️'}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ color: '#E5E7EB', fontSize: '0.8125rem', fontWeight: 500, margin: '0 0 0.125rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ALERT_LABELS[a.alert_type] ?? a.alert_type}</p>
