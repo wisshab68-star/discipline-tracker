@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
@@ -12,35 +11,27 @@ import { AlertHistory } from '@/components/dashboard/AlertHistory'
 import type { Session, Alert } from '@/lib/types'
 
 export default function DashboardPage() {
-  const router = useRouter()
   const supabase = createClient()
-  const [userId, setUserId] = useState<string | null>(null)
   const [sessions, setSessions] = useState<Session[]>([])
   const [alerts, setAlerts] = useState<Alert[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) router.replace('/login')
-      else setUserId(data.user.id)
-    })
-  }, [supabase, router])
-
-  useEffect(() => {
-    if (!userId) return
-
     const load = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { setLoading(false); return }
+
       const { data: sess } = await supabase
         .from('sessions')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', user.id)
         .order('started_at', { ascending: false })
         .limit(30)
 
       const { data: al } = await supabase
         .from('alerts')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', user.id)
         .order('triggered_at', { ascending: false })
         .limit(20)
 
@@ -51,7 +42,7 @@ export default function DashboardPage() {
     }
 
     load()
-  }, [userId, supabase])
+  }, [supabase])
 
   const thirtyDaysAgo = new Date()
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
@@ -73,7 +64,7 @@ export default function DashboardPage() {
       date: s.started_at,
     }))
 
-  if (!userId || loading) {
+  if (loading) {
     return (
       <div className="page-center">
         <p className="subtitle">Chargement...</p>

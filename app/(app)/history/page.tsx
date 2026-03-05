@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
@@ -9,34 +8,29 @@ import { SessionList } from '@/components/dashboard/SessionList'
 import type { Session } from '@/lib/types'
 
 export default function HistoryPage() {
-  const router = useRouter()
   const supabase = createClient()
-  const [userId, setUserId] = useState<string | null>(null)
   const [sessions, setSessions] = useState<Session[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) router.replace('/login')
-      else setUserId(data.user.id)
-    })
-  }, [supabase, router])
+    const load = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { setLoading(false); return }
 
-  useEffect(() => {
-    if (!userId) return
+      const { data } = await supabase
+        .from('sessions')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('started_at', { ascending: false })
 
-    supabase
-      .from('sessions')
-      .select('*')
-      .eq('user_id', userId)
-      .order('started_at', { ascending: false })
-      .then(({ data }) => {
-        if (data) setSessions(data as Session[])
-        setLoading(false)
-      })
-  }, [userId, supabase])
+      if (data) setSessions(data as Session[])
+      setLoading(false)
+    }
 
-  if (!userId || loading) {
+    load()
+  }, [supabase])
+
+  if (loading) {
     return (
       <div className="page-center">
         <p className="subtitle">Chargement...</p>

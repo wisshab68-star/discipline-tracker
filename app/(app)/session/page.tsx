@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { ScoreDisplay } from '@/components/session/ScoreDisplay'
@@ -17,7 +16,6 @@ import { useSessionStore } from '@/store/sessionStore'
 import type { TradeSide } from '@/lib/types'
 
 export default function SessionPage() {
-  const router = useRouter()
   const supabase = createClient()
   const [userId, setUserId] = useState<string | undefined>()
   const [showTradeForm, setShowTradeForm] = useState(false)
@@ -47,10 +45,9 @@ export default function SessionPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) router.replace('/login')
-      else setUserId(data.user.id)
+      if (data.user) setUserId(data.user.id)
     })
-  }, [supabase, router])
+  }, [supabase])
 
   useEffect(() => {
     if (userId && !currentSession) {
@@ -174,8 +171,6 @@ export default function SessionPage() {
       totalScore: sc?.total_score ?? currentScore?.total_score,
     }
   })
-
-  if (!userId) return null
 
   return (
     <div className="page-full">
