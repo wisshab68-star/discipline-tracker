@@ -32,7 +32,7 @@ export default function HomePage() {
   return (
     <>
       <style>{CSS}</style>
-      <div style={{ background: '#0A0B0F', minHeight: '100vh', fontFamily: 'Inter, system-ui, -apple-system, sans-serif', color: '#fff', overflowX: 'hidden' }}>
+      <div style={{ background: '#0D0D0D', minHeight: '100vh', fontFamily: 'Inter, system-ui, -apple-system, sans-serif', color: '#fff', overflowX: 'hidden', backgroundImage: 'radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.06) 0%, transparent 60%)' }}>
 
         {/* NAVBAR */}
         <nav style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: '1px solid #1E2028', background: 'rgba(10,11,15,0.85)', backdropFilter: 'blur(14px)' }}>

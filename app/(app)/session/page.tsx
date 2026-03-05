@@ -283,7 +283,7 @@ export default function SessionPage() {
   return (
     <>
       <style>{CSS}</style>
-      <div style={{ background: '#0A0B0F', minHeight: '100vh', fontFamily: 'Inter,system-ui,sans-serif', color: '#fff', paddingBottom: '2rem' }}>
+      <div style={{ background: '#0D0D0D', minHeight: '100vh', fontFamily: 'Inter,system-ui,sans-serif', color: '#fff', paddingBottom: '2rem' }}>
 
         {/* CRITICAL ALERTS – dramatic full-width pulsing banners */}
         {critAlerts.map((a, i) => (
@@ -299,7 +299,7 @@ export default function SessionPage() {
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '1.5rem' }}>
 
           {/* SESSION HEADER – live stats bar */}
-          <div style={{ background: '#12141A', border: '1px solid #1E2028', borderRadius: '20px', padding: '1.25rem 2rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem', flexWrap: 'wrap' }}>
+          <div style={{ background: '#1A1A1A', border: '1px solid #1E2028', borderRadius: '20px', padding: '1.25rem 2rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem', flexWrap: 'wrap' }}>
             <div>
               <p style={{ color: '#8B8FA8', fontSize: '0.65rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.25rem' }}>Durée</p>
               <SessionTimer startedAt={startedAt} />
@@ -324,7 +324,7 @@ export default function SessionPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1.5rem', alignItems: 'start' }}>
 
             {/* LEFT – Emotional score display */}
-            <div style={{ background: '#12141A', border: '1px solid #1E2028', borderRadius: '20px', padding: '2rem', textAlign: 'center', position: 'sticky', top: '1rem' }}>
+            <div style={{ background: '#1A1A1A', border: '1px solid #1E2028', borderRadius: '20px', padding: '2rem', textAlign: 'center', position: 'sticky', top: '1rem' }}>
               <ScoreRing score={displayScore} />
               <p style={{ color: scoreColor(displayScore), fontSize: '0.9375rem', fontWeight: 600, margin: '1.25rem 0 1.5rem', lineHeight: 1.5 }}>
                 {scoreMsg(displayScore)}
@@ -337,7 +337,7 @@ export default function SessionPage() {
                     { label: 'Émotion',    val: currentScore.emotion_score },
                     { label: 'Post-perte', val: currentScore.post_loss_score },
                   ].map(({ label, val }) => (
-                    <div key={label} style={{ background: '#0A0B0F', borderRadius: '10px', padding: '0.75rem', border: '1px solid #1E2028', textAlign: 'left' }}>
+                    <div key={label} style={{ background: '#0D0D0D', borderRadius: '10px', padding: '0.75rem', border: '1px solid #1E2028', textAlign: 'left' }}>
                       <p style={{ color: '#8B8FA8', fontSize: '0.6rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.25rem' }}>{label}</p>
                       <p style={{ color: scoreColor(val), fontSize: '1.125rem', fontWeight: 800, margin: 0, fontFamily: 'ui-monospace,monospace' }}>{Math.round(val)}</p>
                     </div>
@@ -375,7 +375,7 @@ export default function SessionPage() {
               )}
 
               {/* TRADE LIST */}
-              <div style={{ background: '#12141A', border: '1px solid #1E2028', borderRadius: '20px', padding: '1.5rem' }}>
+              <div style={{ background: '#1A1A1A', border: '1px solid #1E2028', borderRadius: '20px', padding: '1.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '1.25rem' }}>
                   <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>Trades de la session</h3>
                   <span style={{ background: 'rgba(99,102,241,0.12)', color: '#A5B4FC', borderRadius: '100px', padding: '0.1rem 0.5rem', fontSize: '0.75rem', fontWeight: 700 }}>{trades.length}</span>
@@ -392,7 +392,7 @@ export default function SessionPage() {
                       const cl  = checklists[t.trade_id]
                       const col = sc ? scoreColor(sc.total) : '#8B8FA8'
                       return (
-                        <div key={t.trade_id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1rem', background: '#0A0B0F', borderRadius: '12px', border: '1px solid #1E2028', borderLeft: '3px solid ' + col, animation: 'trade-in 0.3s ease' }}>
+                        <div key={t.trade_id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1rem', background: '#0D0D0D', borderRadius: '12px', border: '1px solid #1E2028', borderLeft: '3px solid ' + col, animation: 'trade-in 0.3s ease' }}>
                           <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0, flexWrap: 'wrap' }}>
                             <span style={{ fontWeight: 800, fontSize: '0.9375rem', color: '#E5E7EB' }}>{t.symbol}</span>
                             <span style={{ background: t.side === 'LONG' ? 'rgba(0,212,170,0.12)' : 'rgba(255,77,106,0.12)', color: t.side === 'LONG' ? '#00D4AA' : '#FF4D6A', border: '1px solid ' + (t.side === 'LONG' ? 'rgba(0,212,170,0.3)' : 'rgba(255,77,106,0.3)'), borderRadius: '6px', padding: '0.1rem 0.5rem', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.06em', flexShrink: 0 }}>{t.side}</span>
@@ -427,14 +427,14 @@ export default function SessionPage() {
         {/* PRE-TRADE CHECKLIST MODAL */}
         {checklistOpen && (
           <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.82)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
-            <div style={{ background: '#12141A', border: '1px solid #2A2D3A', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '480px' }}>
+            <div style={{ background: '#1A1A1A', border: '1px solid #2A2D3A', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '480px' }}>
 
               {/* Step indicator */}
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '2rem' }}>
                 {[1, 2, 3].map((n, idx) => (
                   <div key={n} style={{ display: 'flex', alignItems: 'center', flex: idx < 2 ? 1 : 0 }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8125rem', fontWeight: 700, flexShrink: 0, background: step >= n ? 'linear-gradient(135deg,#6366F1,#8B5CF6)' : '#1E2028', color: step >= n ? '#fff' : '#8B8FA8', transition: 'all 0.3s' }}>{n}</div>
-                    {idx < 2 && <div style={{ flex: 1, height: '2px', background: step > n ? '#6366F1' : '#1E2028', margin: '0 0.5rem', transition: 'background 0.3s' }}/>}
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8125rem', fontWeight: 700, flexShrink: 0, background: step >= n ? 'linear-gradient(135deg,#6366F1,#8B5CF6)' : '#252525', color: step >= n ? '#fff' : '#8B8FA8', transition: 'all 0.3s' }}>{n}</div>
+                    {idx < 2 && <div style={{ flex: 1, height: '2px', background: step > n ? '#6366F1' : '#252525', margin: '0 0.5rem', transition: 'background 0.3s' }}/>}
                   </div>
                 ))}
               </div>
@@ -447,7 +447,7 @@ export default function SessionPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                     {([{ val: true, label: '✅ Oui', col: '#00D4AA' }, { val: false, label: '❌ Non', col: '#FF4D6A' }] as { val: boolean; label: string; col: string }[]).map(opt => (
                       <button key={String(opt.val)} onClick={() => setPlanRespected(opt.val)}
-                        style={{ background: planRespected === opt.val ? (opt.val ? 'rgba(0,212,170,0.15)' : 'rgba(255,77,106,0.15)') : '#0A0B0F', border: '2px solid ' + (planRespected === opt.val ? opt.col : '#1E2028'), borderRadius: '12px', padding: '1.125rem', fontSize: '1.0625rem', fontWeight: 700, color: planRespected === opt.val ? opt.col : '#8B8FA8', cursor: 'pointer', transition: 'all 0.2s' }}>{opt.label}</button>
+                        style={{ background: planRespected === opt.val ? (opt.val ? 'rgba(0,212,170,0.15)' : 'rgba(255,77,106,0.15)') : '#0D0D0D', border: '2px solid ' + (planRespected === opt.val ? opt.col : '#252525'), borderRadius: '12px', padding: '1.125rem', fontSize: '1.0625rem', fontWeight: 700, color: planRespected === opt.val ? opt.col : '#8B8FA8', cursor: 'pointer', transition: 'all 0.2s' }}>{opt.label}</button>
                     ))}
                   </div>
                 </div>
@@ -461,7 +461,7 @@ export default function SessionPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                     {(['CALM', 'STRESSED', 'FRUSTRATED', 'FOMO'] as const).map(e => (
                       <button key={e} className="emo-btn" onClick={() => setEmotion(e)}
-                        style={{ background: emotion === e ? 'rgba(99,102,241,0.15)' : '#0A0B0F', border: '2px solid ' + (emotion === e ? '#6366F1' : '#1E2028'), borderRadius: '12px', padding: '0.9375rem', fontSize: '0.9375rem', fontWeight: 600, color: emotion === e ? '#A5B4FC' : '#8B8FA8', cursor: 'pointer', transition: 'all 0.15s' }}>{EMOTION_LABELS[e]}</button>
+                        style={{ background: emotion === e ? 'rgba(99,102,241,0.15)' : '#0D0D0D', border: '2px solid ' + (emotion === e ? '#6366F1' : '#252525'), borderRadius: '12px', padding: '0.9375rem', fontSize: '0.9375rem', fontWeight: 600, color: emotion === e ? '#A5B4FC' : '#8B8FA8', cursor: 'pointer', transition: 'all 0.15s' }}>{EMOTION_LABELS[e]}</button>
                     ))}
                   </div>
                   {emotion === 'FOMO' && (
@@ -478,7 +478,7 @@ export default function SessionPage() {
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '0 0 0.5rem' }}>Confirme ton lot size</h3>
                   <p style={{ color: '#8B8FA8', fontSize: '0.875rem', margin: '0 0 1.5rem', lineHeight: 1.6 }}>Respecte ton money management. Aucune exception.</p>
                   <input value={lotSize} onChange={e => setLotSize(e.target.value)} type="number" step="0.01" min="0.01" placeholder="0.10"
-                    style={{ width: '100%', background: '#0A0B0F', border: '2px solid #1E2028', borderRadius: '12px', padding: '1.25rem', fontSize: '2.25rem', fontWeight: 700, color: '#fff', textAlign: 'center', outline: 'none', fontFamily: 'ui-monospace,monospace', boxSizing: 'border-box' }}/>
+                    style={{ width: '100%', background: '#0D0D0D', border: '2px solid #1E2028', borderRadius: '12px', padding: '1.25rem', fontSize: '2.25rem', fontWeight: 700, color: '#fff', textAlign: 'center', outline: 'none', fontFamily: 'ui-monospace,monospace', boxSizing: 'border-box' }}/>
                   <p style={{ color: '#8B8FA8', fontSize: '0.8125rem', textAlign: 'center', margin: '0.5rem 0 0' }}>lots</p>
                 </div>
               )}
@@ -502,20 +502,20 @@ export default function SessionPage() {
         {/* TRADE FORM MODAL */}
         {tradeFormOpen && (
           <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.82)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
-            <div style={{ background: '#12141A', border: '1px solid #2A2D3A', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '480px' }}>
+            <div style={{ background: '#1A1A1A', border: '1px solid #2A2D3A', borderRadius: '24px', padding: '2.5rem', width: '100%', maxWidth: '480px' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '0 0 1.5rem' }}>Détails du trade</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div>
                   <label style={{ color: '#8B8FA8', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.375rem' }}>Symbole</label>
                   <input value={symbol} onChange={e => setSymbol(e.target.value)} placeholder="EURUSD"
-                    style={{ width: '100%', background: '#0A0B0F', border: '1px solid #1E2028', borderRadius: '10px', padding: '0.75rem 1rem', color: '#fff', fontSize: '1rem', fontWeight: 600, outline: 'none', boxSizing: 'border-box', textTransform: 'uppercase' }}/>
+                    style={{ width: '100%', background: '#0D0D0D', border: '1px solid #1E2028', borderRadius: '10px', padding: '0.75rem 1rem', color: '#fff', fontSize: '1rem', fontWeight: 600, outline: 'none', boxSizing: 'border-box', textTransform: 'uppercase' }}/>
                 </div>
                 <div>
                   <label style={{ color: '#8B8FA8', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.375rem' }}>Direction</label>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
                     {(['LONG', 'SHORT'] as TradeSide[]).map(s => (
                       <button key={s} className="side-btn" onClick={() => setSide(s)}
-                        style={{ background: side === s ? (s === 'LONG' ? 'rgba(0,212,170,0.15)' : 'rgba(255,77,106,0.15)') : '#0A0B0F', border: '2px solid ' + (side === s ? (s === 'LONG' ? '#00D4AA' : '#FF4D6A') : '#1E2028'), borderRadius: '10px', padding: '0.875rem', color: side === s ? (s === 'LONG' ? '#00D4AA' : '#FF4D6A') : '#8B8FA8', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}>
+                        style={{ background: side === s ? (s === 'LONG' ? 'rgba(0,212,170,0.15)' : 'rgba(255,77,106,0.15)') : '#0D0D0D', border: '2px solid ' + (side === s ? (s === 'LONG' ? '#00D4AA' : '#FF4D6A') : '#252525'), borderRadius: '10px', padding: '0.875rem', color: side === s ? (s === 'LONG' ? '#00D4AA' : '#FF4D6A') : '#8B8FA8', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}>
                         {s === 'LONG' ? '📈 LONG' : '📉 SHORT'}
                       </button>
                     ))}
@@ -529,7 +529,7 @@ export default function SessionPage() {
                   <div key={f.label}>
                     <label style={{ color: '#8B8FA8', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.375rem' }}>{f.label}</label>
                     <input value={f.val} onChange={e => f.set(e.target.value)} placeholder={f.ph} type="number" step="any"
-                      style={{ width: '100%', background: '#0A0B0F', border: '1px solid #1E2028', borderRadius: '10px', padding: '0.75rem 1rem', color: '#fff', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' }}/>
+                      style={{ width: '100%', background: '#0D0D0D', border: '1px solid #1E2028', borderRadius: '10px', padding: '0.75rem 1rem', color: '#fff', fontSize: '1rem', outline: 'none', boxSizing: 'border-box' }}/>
                   </div>
                 ))}
               </div>
@@ -547,7 +547,7 @@ export default function SessionPage() {
         {/* END SESSION MODAL */}
         {showEndModal && (
           <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.88)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
-            <div style={{ background: '#12141A', border: '1px solid #2A2D3A', borderRadius: '24px', padding: '3rem 2.5rem', width: '100%', maxWidth: '440px', textAlign: 'center' }}>
+            <div style={{ background: '#1A1A1A', border: '1px solid #2A2D3A', borderRadius: '24px', padding: '3rem 2.5rem', width: '100%', maxWidth: '440px', textAlign: 'center' }}>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.375rem' }}>Résumé de session</h3>
               <p style={{ color: '#8B8FA8', fontSize: '0.875rem', margin: '0 0 2rem' }}>Voici comment tu as tradé aujourd&apos;hui</p>
 
@@ -563,7 +563,7 @@ export default function SessionPage() {
                   { label: 'Win rate',    val: winRate + '%' },
                   { label: 'Score moyen', val: String(finalScore) },
                 ].map(st => (
-                  <div key={st.label} style={{ background: '#0A0B0F', borderRadius: '10px', padding: '0.875rem', border: '1px solid #1E2028' }}>
+                  <div key={st.label} style={{ background: '#0D0D0D', borderRadius: '10px', padding: '0.875rem', border: '1px solid #1E2028' }}>
                     <p style={{ color: '#8B8FA8', fontSize: '0.65rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.25rem' }}>{st.label}</p>
                     <p style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, fontFamily: 'ui-monospace,monospace' }}>{st.val}</p>
                   </div>
