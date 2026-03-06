@@ -16,11 +16,11 @@ const FAQS = [
 const fadeUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] } } }
 const stagger = { visible: { transition: { staggerChildren: 0.12 } } }
 
-function Section({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+function Section({ children, className, style, id }: { children: React.ReactNode; className?: string; style?: React.CSSProperties; id?: string }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   return (
-    <motion.section ref={ref} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={stagger} className={className} style={style}>
+    <motion.section ref={ref} id={id} initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={stagger} className={className} style={style}>
       {children}
     </motion.section>
   )
