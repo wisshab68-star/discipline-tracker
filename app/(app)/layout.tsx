@@ -9,6 +9,7 @@ const NAV = [
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/session',   label: 'Session' },
   { href: '/history',   label: 'Historique' },
+  { href: '/journal',   label: 'Journal IA' },
 ]
 
 const CSS = `
@@ -62,7 +63,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </Link>
               )
             })}
-            <span style={{ padding: '0.375rem 0.875rem', color: '#444', fontSize: '0.875rem', cursor: 'not-allowed' }}>Coach IA <span style={{ fontSize: '0.6rem', background: '#1A1A1A', color: '#555', borderRadius: '4px', padding: '0.1rem 0.35rem', marginLeft: '0.25rem', verticalAlign: 'middle' }}>soon</span></span>
+            
           </nav>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0, position: 'relative' }}>
